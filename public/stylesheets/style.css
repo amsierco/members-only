@@ -1,8 +1,26 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Poppins&family=Skranji&display=swap');
+
+html,
+body,
+*::before,
+*::after,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  font-family: Poppins, 'sans-serf', 'Times New Roman', Times, serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.form-inputs{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: .5rem;
 }

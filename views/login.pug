@@ -1,0 +1,20 @@
+extends layout
+
+block content 
+    h1 #[strong Login]
+
+    if errors
+        ul
+            for error in errors
+                li!= error.msg
+
+    form.login(method='POST' action='')
+        .form-inputs
+            label(for='username') Username: 
+            input#username(type='text' name='username' value=(undefined === username ? '' : username))
+            label(for='password') Password: 
+            input#password(type='text' name='password' value=(undefined === password ? '' : password))
+
+        button#form-submit(type='submit') Login
+    
+    .form-footer Don't have an account? #[a(href='/signup') Sign up]

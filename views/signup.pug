@@ -1,0 +1,15 @@
+extends layout
+
+block content 
+    h1 #[strong Sign Up]
+
+    form.signup(method='POST' action='')
+        .form-inputs
+            label(for='username') Username: 
+            input#username(type='text' name='username')
+            label(for='password') Password: 
+            input#password(type='text' name='password')
+
+        button#form-submit(type='submit') Sign up
+    
+    .form-footer Already have an account? #[a(href='/login') Login]
