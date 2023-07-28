@@ -19,8 +19,13 @@ body,
 body {
   font-family: Poppins, 'sans-serf', 'Times New Roman', Times, serif;
   width: 100vw;
-  background-color: var(--background);
+  height: 100vh;
   position: relative;
+  /* https://unsplash.com/photos/jR4Zf-riEjI */
+  background: url('../images/rainbow-tiles.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  backdrop-filter: brightness(90%);
 }
 
 a {
@@ -57,7 +62,7 @@ form {
   align-items: center;
   height: 100%;
   width: 100%;
-  margin-bottom: .5rem;
+  margin-bottom: 1rem;
   overflow: visible;
 }
 
@@ -93,7 +98,9 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  max-height: 80vh;
 
   & .message-board {
     width: 50%;
@@ -104,12 +111,16 @@ h1 {
     justify-content: flex-start;
     align-items: center;
     padding: 1rem;
+    padding-top: 3px;
     gap: .75rem;
+    box-shadow: 0px 0px 6px 2px gray;
 
     & ul {
       width: 90%;
       padding-left: 1rem;
       padding-right: 1rem;
+      max-height: 100%;
+      overflow-y: auto;
     
       & li {
         display: flex;
@@ -122,6 +133,7 @@ h1 {
       width: 90%;
       padding-left: 1rem;
       padding-right: 1rem;
+      padding-bottom: .75rem;
     }
 
     & .message-container {
@@ -132,6 +144,11 @@ h1 {
       background: var(--primary);
       max-width: fit-content;
 
+      & #message {
+        overflow-wrap: break-word;
+        overflow: hidden;
+      }
+
       & .data {
         display: flex;
         justify-content: space-between;
@@ -140,6 +157,7 @@ h1 {
 
         & #author {
           margin-right: 10px;
+          font-weight: 600;
         }
       }
     }
@@ -192,6 +210,7 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   height: 100vh;
+  background-color: var(--background);
 
   > div{
     min-width: 100%;
@@ -238,4 +257,14 @@ h1 {
   font-weight: bolder;
   & #b-m { color: #E28D8D;}
   & #b-o { color: #09E1E1; padding-right: .25rem;}
+}
+
+.no-msg {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--secondary);
+  font-weight: bold;
 }

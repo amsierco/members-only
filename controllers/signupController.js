@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const { body, validationResult } = require("express-validator");
 const bcrypt = require('bcryptjs');
+const passport = require("passport");
 
 const User = require('../models/user');
 
@@ -47,7 +48,10 @@ exports.form_post = [
             });
 
             const result = await user.save();
-            res.render('login');
+            console.log(req.body.username + ' has signed up!');
+            next();
         });
     }),
+    // Confirm new user with database
+    passport.authenticate('local', { failureRedirect: "/signup", failureMessage: true, successRedirect: '/home'}),
 ];

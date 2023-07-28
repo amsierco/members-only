@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const MessageSchema = new Schema({
     author: { type: Schema.Types.ObjectId },
-    message: { type: String, required: true, minLength: 5, maxLength: 100 },
+    message: { type: String, required: true, minLength: 1, maxLength: 246 },
     date_posted: { type: Date, required: true }
 });
 

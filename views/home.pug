@@ -12,30 +12,33 @@ block content
 
     //- h3 Welcome #{user.username}!
 
-    .message-board-container
-        .message-board 
-            ul 
-                each message in (undefined === message_list ? [] : message_list)
-                    li 
-                        if JSON.stringify(user._id) === JSON.stringify(message.author._id)
-                           .message-container(class='right')
-                                if authorised
-                                    .data 
-                                        #author #{message.author.username}
-                                        #date #{message.date_posted.toLocaleString().split(',')[0]}
-                                p#message #{message.message}
-                        else
-                            .message-container 
-                                if authorised
-                                    .data 
-                                        #author #{message.author.username}
-                                        #date #{message.date_posted.toLocaleString().split(',')[0]}
-                                p#message #{message.message}
-                                
-            if authorised  
-                .message-form-container           
-                        form.message(method='POST' action='/home/create-message')
-                            .form-inputs-message
-                                input#user-message(type='text' name='user_message' placeholder='Enter message')
+    if (undefined !== message_list && JSON.stringify(message_list) !== '[]') || authorised
+        .message-board-container
+            .message-board 
+                ul 
+                    each message in (undefined === message_list ? [] : message_list)
+                        li 
+                            if JSON.stringify(user._id) === JSON.stringify(message.author._id)
+                                .message-container(class='right')
+                                        if authorised
+                                            .data 
+                                                #author #{message.author.username}
+                                                #date #{message.date_posted.toLocaleString().split(',')[0]}
+                                        p#message #{message.message}
+                            else
+                                .message-container 
+                                    if authorised
+                                        .data 
+                                            #author #{message.author.username}
+                                            #date #{message.date_posted.toLocaleString().split(',')[0]}
+                                    p#message #{message.message}
+                                    
+                if authorised  
+                    .message-form-container           
+                            form.message(method='POST' action='/home/create-message')
+                                .form-inputs-message
+                                    input#user-message(type='text' name='user_message' placeholder='Enter message' maxLength='246')
 
-                                button#form-submit(type='submit') Send Message
+                                    button#form-submit(type='submit') Send Message
+    else
+        .no-msg No Messages
