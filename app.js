@@ -84,7 +84,23 @@ passport.use(
         return done (null, false, { message: "Incorrect password" });
       }
     } catch(err) {
-        return done(err);
+      return done(err);
+    };
+  })
+)
+
+// Guest verification strategy
+passport.use(
+  'guest',
+  new CustomStrategy(async(req, done) => {
+    try{
+      const guest_user = await User.findOne(
+        { _id: process.env.GUEST_ID }
+      );
+      return done(null, guest_user);
+
+    } catch(err) {
+      return done(err);
     };
   })
 )
@@ -121,6 +137,16 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 app.use('/home', clubRouter);
+
+// Logout
+app.get("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/login");
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

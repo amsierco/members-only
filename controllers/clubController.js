@@ -22,7 +22,7 @@ exports.home = asyncHandler(async (req, res, next) => {
     if(req.user.member === true){
         const isAdmin = (undefined === req.user.admin ? false : req.user.admin);
         if(isAdmin){ console.log('Admin Access Granted'); }
-        
+
         res.render('home', {
             user: req.user,
             authorised: true,

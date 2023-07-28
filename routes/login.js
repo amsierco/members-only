@@ -9,4 +9,7 @@ router.get('/', loginController.form_get);
 // POST Login form
 router.post('/', loginController.form_post);
 
+// GET Guest login
+router.get('/guest', loginController.guest);
+
 module.exports = router;

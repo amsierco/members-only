@@ -14,3 +14,5 @@ exports.form_post = [
     body('password').trim().escape(),
     passport.authenticate('local', { failureRedirect: "/", failureMessage: true, successRedirect: '/home'}),
 ];
+
+exports.guest = passport.authenticate('guest', { failureRedirect: "/", failureMessage: true, successRedirect: '/home'});
