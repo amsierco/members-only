@@ -5,6 +5,7 @@ const path = require('path');
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const CustomStrategy = require("passport-custom").Strategy;
 const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -12,6 +13,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const signupRouter = require('./routes/signup');
+const clubRouter = require('./routes/club');
 
 const User = require('./models/user');
 
@@ -37,11 +39,14 @@ app.use(session({
   saveUninitialized: true 
 }));
 
+app.use(express.urlencoded({ extended: false }));
+
 // Password verification strategy
 passport.use(
+  'local',
   new LocalStrategy(async(username, password, done) => {
-    console.log('local strategy called!');
       try {
+        // Search database
         const user = await User.findOne({ username: username });
         if (!user) {
             return done(null, false, { message: "Incorrect username" });
@@ -49,6 +54,7 @@ passport.use(
         bcrypt.compare(password, user.password, (err, res) => {
             if (res) {
               // passwords match! log user in
+              console.log('Logging in: ' + user);
               return done(null, user)
             } else {
               // passwords do not match!
@@ -61,29 +67,50 @@ passport.use(
   })
 );
 
+// Club code verification strategy
+passport.use(
+  'code',
+  new CustomStrategy(async(req, done) => {
+    try{
+      if(req.body.code === process.env.MEMBER_CODE){
+        // Update user's membership
+        const updated_user = await User.findOneAndUpdate(
+            { _id: req.user._id },
+            { member: true },
+            { new: true }
+        );
+        return done(null, updated_user);
+      } else {
+        return done (null, false, { message: "Incorrect password" });
+      }
+    } catch(err) {
+        return done(err);
+    };
+  })
+)
+
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  done(null, user._id);
 });
 
-passport.deserializeUser(async function(id, done) {
+passport.deserializeUser(async function(_id, done) {
   try {
-      const user = await User.findById(id);
+      const user = await User.findById(_id);
       done(null, user);
   } catch(err) {
       done(err);
   };
 });
 
-// Set up Passport
+// Use passport as middleware and with the current session
 app.use(passport.initialize());
+app.use(passport.session());
+
 // Makes user login status avaliable throughout entire app with Express's locals Object
 app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   next();
 });
-
-app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -93,6 +120,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
+app.use('/home', clubRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

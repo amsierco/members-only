@@ -1,0 +1,16 @@
+extends layout 
+
+block content 
+    h1 Homepage 
+
+    if errors
+            ul
+                for error in errors
+                    li!= error.msg
+
+    form.join-club(method='POST' action='')
+        .form-inputs
+            label(for='code') Secret Code: 
+            input#code(type='text' name='code' value=(undefined === code ? '' : code))
+
+        button#form-submit(type='submit') Join

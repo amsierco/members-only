@@ -5,7 +5,11 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
 exports.form_get = (req, res, next) => {
-    res.render('signup');
+    if(req.user){
+        res.redirect('/home');
+    } else {
+        res.render('signup');
+    }
 };
 
 exports.form_post = [
