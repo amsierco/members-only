@@ -18,21 +18,39 @@ block content
                 ul 
                     each message in (undefined === message_list ? [] : message_list)
                         li 
-                            if JSON.stringify(user._id) === JSON.stringify(message.author._id)
-                                .message-container(class='right')
+                            //- Admin Options
+                            if (undefined === admin ? false : admin) 
+                                if JSON.stringify(user._id) === JSON.stringify(message.author._id)
+                                    a(href=`/home/delete-message/${message._id}`, class='message-container right admin')
                                         if authorised
                                             .data 
                                                 #author #{message.author.username}
                                                 #date #{message.date_posted.toLocaleString().split(',')[0]}
                                         p#message #{message.message}
+                                else
+                                    a(href=`/home/delete-message/${message._id}`, class='message-container admin')
+                                        if authorised
+                                            .data 
+                                                #author #{message.author.username}
+                                                #date #{message.date_posted.toLocaleString().split(',')[0]}
+                                        p#message #{message.message}
+                            //- Regular user
                             else
-                                .message-container 
-                                    if authorised
-                                        .data 
-                                            #author #{message.author.username}
-                                            #date #{message.date_posted.toLocaleString().split(',')[0]}
-                                    p#message #{message.message}
-                                    
+                                if JSON.stringify(user._id) === JSON.stringify(message.author._id)
+                                    .message-container(class='right')
+                                            if authorised
+                                                .data 
+                                                    #author #{message.author.username}
+                                                    #date #{message.date_posted.toLocaleString().split(',')[0]}
+                                            p#message #{message.message}
+                                else
+                                    .message-container 
+                                        if authorised
+                                            .data 
+                                                #author #{message.author.username}
+                                                #date #{message.date_posted.toLocaleString().split(',')[0]}
+                                        p#message #{message.message}
+                                        
                 if authorised  
                     .message-form-container           
                             form.message(method='POST' action='/home/create-message')

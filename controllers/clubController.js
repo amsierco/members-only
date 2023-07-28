@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const { body } = require("express-validator");
 const passport = require("passport");
 
+const User = require('../models/user');
 const Message = require('../models/message');
 
 exports.home = asyncHandler(async (req, res, next) => {
@@ -17,14 +18,16 @@ exports.home = asyncHandler(async (req, res, next) => {
         })
         .exec();
 
-        console.log(JSON.stringify(message_list) === '[]');
-
     // If member is authorised
     if(req.user.member === true){
+        const isAdmin = (undefined === req.user.admin ? false : req.user.admin);
+        if(isAdmin){ console.log('Admin Access Granted'); }
+        
         res.render('home', {
             user: req.user,
             authorised: true,
-            message_list: message_list
+            message_list: message_list,
+            admin: isAdmin
         });
     } else {
         // If member is not authorised
@@ -64,3 +67,10 @@ exports.create_message = [
         res.redirect('/home');
     })
 ];
+
+exports.delete_message = asyncHandler(async (req, res, next) => {
+    console.log('Deleting Message: ' + req.params.id);
+
+    await Message.deleteOne({ _id: req.params.id });
+    res.redirect('/home');
+});
