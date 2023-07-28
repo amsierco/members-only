@@ -51,7 +51,7 @@ exports.create_message = [
 
     // Create new database entry
     asyncHandler(async (req, res, next) => {
-        let current_date = new Date().toLocaleString().split(',')[0];
+        let current_date = new Date()
         const new_message = new Message({
             author: req.user,
             message: req.body.user_message,

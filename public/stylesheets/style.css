@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Poppins&family=Skranji&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Poppins&display=swap');
 
 html,
 body,
@@ -12,19 +12,12 @@ body,
 
   --primary: #e28d8d;
   --secondary: #e6e5e5;
-  /* --secondary: #eadcdc; */
-  /* --secondary: #d8d8d4; */
   --accent: #09e1e1;
   --background: #ffffff;
-
-  /*   --primary: #93cadc;
-  --secondary: #e7c2b6;
-  --accent: #33839e;
-  --background: #f5e5e0; */
-  font-family: Poppins, 'sans-serf', 'Times New Roman', Times, serif;
 }
 
 body {
+  font-family: Poppins, 'sans-serf', 'Times New Roman', Times, serif;
   width: 100vw;
   background-color: var(--background);
 }
@@ -35,13 +28,14 @@ a {
 }
 
 
+
 form {
   /* border: 1px solid red; */
   width: 100%;
 
 }
 
-.login, .signup {
+.login, .signup, .join-club {
   padding: 1rem;
   background-color: var(--secondary);
 }
@@ -67,16 +61,22 @@ input{
   padding-left: .6rem;
   background: white;
   border-radius: .5rem;
+
+  &:focus{
+    border-bottom: 2px solid var(--accent);
+  }
 }
 
 #form-submit {
   padding: .5rem;
+  margin-bottom: .5rem;
   border: none;
   border-radius: .5rem;
   background-color: var(--accent);
 
-  & :hover {
+  &:hover {
     cursor: pointer;
+    transform: translateY(2px);
   }
 }
 
@@ -138,11 +138,18 @@ h1 {
       padding: .5rem;
       text-decoration: none;
       border-radius: .5rem;
+      margin-bottom: 2px;
+      
+      &:hover {
+        cursor: pointer;
+        transform: translateY(2px);
+      }
     }
   }
 }
 
-.login-container {
+.login-container,
+.signup-container {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   height: 100vh;
@@ -153,21 +160,32 @@ h1 {
     margin-left: 4px;
   }
 
-  & #login-background {
-    /* https://unsplash.com/photos/5sF6NrB1MEg */
+  & .background {
     width: 100%;
-    background-image: url('../images/green-plant-brown-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: bottom;
     background-color: var(--secondary);
     box-shadow: 1px 0px 3px 1px gray;
     margin: 0;
+  }
+
+  & #login-background {
+    /* https://unsplash.com/photos/5sF6NrB1MEg */
+    background-image: url('../images/green-plant-brown-background.jpg');
+    background-position: bottom;
+  }
+
+  & #signup-background {
+    /* https://unsplash.com/photos/IKvDKHWF_5w */
+    background-image: url('../images/green-plant-blue-background.jpg');
+    background-position: center;
   }
 }
 
 #brand {
   display: flex;
-  & #b-m { color: #E28D8D; }
+  font-size: 2rem;
+  font-weight: bolder;
+  & #b-m { color: #E28D8D;}
   & #b-o { color: #09E1E1; }
 }

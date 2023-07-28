@@ -1,7 +1,16 @@
 extends layout 
 
 block content 
-    h1 Homepage 
+    .nav 
+        h2#brand
+            #b-m Members
+            #b-o Only
+        .links
+            a(href='/login') Login
+            a(href='/signup') Signup
+            a(href='/home') Home
+
+    h1 Join the Club
 
     if errors
             ul
@@ -13,4 +22,4 @@ block content
             label(for='code') Secret Code: 
             input#code(type='text' name='code' value=(undefined === code ? '' : code))
 
-        button#form-submit(type='submit') Join
+            button#form-submit(type='submit') Join
