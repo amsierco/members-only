@@ -12,4 +12,8 @@ router.get('/join-club', clubController.join_club_get);
 // POST join-club page
 router.post('/join-club', clubController.join_club_post);
 
+// POST new message form
+// ADD THIS URL TO THE FORM'S ACTION
+router.post('/create-message', clubController.create_message);
+
 module.exports = router;

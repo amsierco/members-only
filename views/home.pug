@@ -6,3 +6,21 @@ block content
 
     .nav 
         a(href='/home/join-club') Join The Club
+
+    .message-board message-board-placeholder 
+        ul 
+            each message in (undefined === message_list ? [] : message_list)
+                li 
+                    .message-container 
+                        if authorised
+                            #author #{message.author.username}
+                        #message #{message.message}
+                        #date #{message.date_posted}
+                        
+        .message-form-container 
+            form.signup(method='POST' action='/home/create-message')
+                .form-inputs
+                    label(for='user-message') Message: 
+                    input#user-message(type='text' name='user_message')
+
+                button#form-submit(type='submit') Submit

@@ -47,7 +47,6 @@ exports.form_post = [
             });
 
             const result = await user.save();
-            console.log('success!');
             res.render('signup');
         });
     }),

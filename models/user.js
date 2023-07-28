@@ -8,9 +8,9 @@ const UserSchema = new Schema({
 });
 
 // User profile URL
-UserSchema.virtual("url").get(function () {
-    return `/profile/${this._id}`;
-});
+// UserSchema.virtual("url").get(function () {
+//     return `/profile/${this._id}`;
+// });
   
 // Export model
 module.exports = mongoose.model("User", UserSchema);
