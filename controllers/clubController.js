@@ -5,6 +5,8 @@ const passport = require("passport");
 const Message = require('../models/message');
 
 exports.home = asyncHandler(async (req, res, next) => {
+    if(!req.user){ return res.redirect('/login'); }
+
     // Render messages
     const message_list = await Message
         .find({})
@@ -18,15 +20,15 @@ exports.home = asyncHandler(async (req, res, next) => {
     // If member is authorised
     if(req.user.member === true){
         
-        console.log(message_list);
-        
         res.render('home', {
+            user: req.user.username,
             authorised: true,
             message_list: message_list
         });
     } else {
         // If member is not authorised
         res.render('home', {
+            user: req.user.username,
             authorised: false,
             message_list: message_list
         });
@@ -34,6 +36,7 @@ exports.home = asyncHandler(async (req, res, next) => {
 });
 
 exports.join_club_get = (req, res, next) => {
+    if(!req.user){ return res.redirect('/login'); }
     res.render('join-club');
 };
 
@@ -48,33 +51,15 @@ exports.create_message = [
 
     // Create new database entry
     asyncHandler(async (req, res, next) => {
-        let current_date = new Date();
+        let current_date = new Date().toLocaleString().split(',')[0];
         const new_message = new Message({
             author: req.user,
             message: req.body.user_message,
             date_posted: current_date
         });
         const result = await new_message.save();
-        next();
-    }),
 
-    // Render messages
-    asyncHandler(async (req, res, next) => {
-        const message_list = await Message.find({}).exec();
-
-        // If member is authorised
-        if(req.user.member === true){
-            res.render('home', {
-                authorised: true,
-                author: req.user.username,
-                message_list: message_list
-            });
-        } else {
-            // If member is not authorised
-            res.render('home', {
-                authorised: false,
-                message_list: message_list
-            });
-        }
+        // Render messages
+        res.redirect('/home');
     })
 ];

@@ -1,26 +1,30 @@
 extends layout 
 
 block content 
-    h1 Homepage 
-    h2 Welcome #[strong user]!
-
     .nav 
-        a(href='/home/join-club') Join The Club
+        h3#brand
+                #b-m Members
+                #b-o Only
+        .links
+            a(href='/home/join-club') Join The Club
 
-    .message-board message-board-placeholder 
-        ul 
-            each message in (undefined === message_list ? [] : message_list)
-                li 
-                    .message-container 
-                        if authorised
-                            #author #{message.author.username}
-                        #message #{message.message}
-                        #date #{message.date_posted}
+    h3 Welcome #{user}!
+
+    .message-board-container
+        .message-board 
+            ul 
+                each message in (undefined === message_list ? [] : message_list)
+                    li 
+                        .message-container 
+                            if authorised
+                                #author #{message.author.username}
+                            p#message #{message.message}
+                            if authorised
+                                #date #{message.date_posted}
                         
-        .message-form-container 
-            form.signup(method='POST' action='/home/create-message')
-                .form-inputs
-                    label(for='user-message') Message: 
-                    input#user-message(type='text' name='user_message')
+            .message-form-container 
+                form.message(method='POST' action='/home/create-message')
+                    .form-inputs-message
+                        input#user-message(type='text' name='user_message' placeholder='Enter message')
 
-                button#form-submit(type='submit') Submit
+                        button#form-submit(type='submit') Send Message

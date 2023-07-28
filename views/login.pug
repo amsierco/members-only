@@ -1,20 +1,27 @@
 extends layout
 
 block content 
-    h1 #[strong Login]
+    .login-container
+        #login-background
 
-    if errors
-        ul
-            for error in errors
-                li!= error.msg
+        div
+            h1#brand
+                #b-m Members
+                #b-o Only
+            h1 #[strong Login]
 
-    form.login(method='POST' action='')
-        .form-inputs
-            label(for='username') Username: 
-            input#username(type='text' name='username' value=(undefined === username ? '' : username))
-            label(for='password') Password: 
-            input#password(type='text' name='password' value=(undefined === password ? '' : password))
+            if errors
+                ul
+                    for error in errors
+                        li!= error.msg
 
-        button#form-submit(type='submit') Login
-    
-    .form-footer Don't have an account? #[a(href='/signup') Sign up] Or #[a(href='/home') continue as a Guest]
+            form.login(method='POST' action='')
+                .form-inputs
+                    label(for='username') Username: 
+                    input#username(type='text' name='username' value=(undefined === username ? '' : username))
+                    label(for='password') Password: 
+                    input#password(type='text' name='password' value=(undefined === password ? '' : password))
+
+                    button#form-submit(type='submit') Login
+            
+                .form-footer Don't have an account? #[a(href='/signup') Sign up] Or #[a(href='/home') continue as a Guest]
