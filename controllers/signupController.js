@@ -47,7 +47,7 @@ exports.form_post = [
             });
 
             const result = await user.save();
-            res.render('signup');
+            res.render('login');
         });
     }),
 ];

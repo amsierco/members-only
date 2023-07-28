@@ -10,19 +10,28 @@ block content
             a(href='/signup') Signup
             a(href='/home/join-club') Join The Club
 
-    h3 Welcome #{user}!
+    //- h3 Welcome #{user.username}!
 
     .message-board-container
         .message-board 
             ul 
                 each message in (undefined === message_list ? [] : message_list)
                     li 
-                        .message-container 
-                            if authorised
-                                #author #{message.author.username}
-                            p#message #{message.message}
-                            if authorised
-                                #date #{message.date_posted.toLocaleString().split(',')[0]}
+                        if JSON.stringify(user._id) === JSON.stringify(message.author._id)
+                           .message-container(class='right')
+                                if authorised
+                                    .data 
+                                        #author #{message.author.username}
+                                        #date #{message.date_posted.toLocaleString().split(',')[0]}
+                                p#message #{message.message}
+                        else
+                            .message-container 
+                                if authorised
+                                    .data 
+                                        #author #{message.author.username}
+                                        #date #{message.date_posted.toLocaleString().split(',')[0]}
+                                p#message #{message.message}
+                                
             if authorised  
                 .message-form-container           
                         form.message(method='POST' action='/home/create-message')

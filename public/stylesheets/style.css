@@ -20,6 +20,7 @@ body {
   font-family: Poppins, 'sans-serf', 'Times New Roman', Times, serif;
   width: 100vw;
   background-color: var(--background);
+  position: relative;
 }
 
 a {
@@ -27,17 +28,18 @@ a {
   color: var(--accent);
 }
 
-
-
 form {
-  /* border: 1px solid red; */
   width: 100%;
-
 }
 
 .login, .signup, .join-club {
   padding: 1rem;
   background-color: var(--secondary);
+}
+
+.join-club {
+  width: fit-content;
+  border-radius: 1rem;
 }
 
 .form-inputs{
@@ -52,8 +54,11 @@ form {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: .5rem;
+  align-items: center;
   height: 100%;
   width: 100%;
+  margin-bottom: .5rem;
+  overflow: visible;
 }
 
 input{
@@ -69,11 +74,9 @@ input{
 
 #form-submit {
   padding: .5rem;
-  margin-bottom: .5rem;
   border: none;
   border-radius: .5rem;
   background-color: var(--accent);
-
   &:hover {
     cursor: pointer;
     transform: translateY(2px);
@@ -90,6 +93,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 2rem;
 
   & .message-board {
     width: 50%;
@@ -97,23 +101,59 @@ h1 {
     background-color: var(--secondary);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 1rem;
     gap: .75rem;
+
+    & ul {
+      width: 90%;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    
+      & li {
+        display: flex;
+        align-items: center;
+        margin-bottom: .5rem;
+      }
+    }
+
+    & .message-form-container {
+      width: 90%;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
 
     & .message-container {
       padding: .6rem;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
       border-radius: 1rem;
       background: var(--primary);
       max-width: fit-content;
-      margin-bottom: .5rem;
+
+      & .data {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dotted black;
+        margin-bottom: .25rem;
+
+        & #author {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    & .message-container.right {
+      margin-left: auto;
     }
   }
+}
+
+.abs-nav{
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .nav {
@@ -121,11 +161,9 @@ h1 {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 2px 3px 0px rgba(177, 167, 167, 1);
+  box-shadow: 0px 1px 3px 1px gray;
   padding: .5rem;
   background-color: var(--secondary);
-
-  margin-bottom: 2rem;
 
   & .links {
     display: flex;
@@ -149,7 +187,8 @@ h1 {
 }
 
 .login-container,
-.signup-container {
+.signup-container,
+.join-club-container {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   height: 100vh;
@@ -180,6 +219,17 @@ h1 {
     background-image: url('../images/green-plant-blue-background.jpg');
     background-position: center;
   }
+
+  & #join-club-background {
+    /* https://unsplash.com/photos/oZuBNC-6E2s */
+    background: url('../images/blue-question-mark-pink-background.jpg');
+    background-position: right;
+    background-size: cover;
+  }
+}
+
+.join-club-container {
+  padding-top: 4rem;
 }
 
 #brand {
@@ -187,5 +237,5 @@ h1 {
   font-size: 2rem;
   font-weight: bolder;
   & #b-m { color: #E28D8D;}
-  & #b-o { color: #09E1E1; }
+  & #b-o { color: #09E1E1; padding-right: .25rem;}
 }

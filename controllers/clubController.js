@@ -19,16 +19,16 @@ exports.home = asyncHandler(async (req, res, next) => {
 
     // If member is authorised
     if(req.user.member === true){
-        
+        console.log(JSON.stringify(req.user._id)===JSON.stringify(message_list[0].author._id));
         res.render('home', {
-            user: req.user.username,
+            user: req.user,
             authorised: true,
             message_list: message_list
         });
     } else {
         // If member is not authorised
         res.render('home', {
-            user: req.user.username,
+            user: req.user,
             authorised: false,
             message_list: message_list
         });

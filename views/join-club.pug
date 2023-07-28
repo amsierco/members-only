@@ -1,7 +1,7 @@
 extends layout 
 
 block content 
-    .nav 
+    .nav.abs-nav
         h2#brand
             #b-m Members
             #b-o Only
@@ -10,16 +10,20 @@ block content
             a(href='/signup') Signup
             a(href='/home') Home
 
-    h1 Join the Club
+    .join-club-container
+        #join-club-background.background
 
-    if errors
-            ul
-                for error in errors
-                    li!= error.msg
+        div
+            h1 Join the Club
 
-    form.join-club(method='POST' action='')
-        .form-inputs
-            label(for='code') Secret Code: 
-            input#code(type='text' name='code' value=(undefined === code ? '' : code))
+            if errors
+                    ul
+                        for error in errors
+                            li!= error.msg
 
-            button#form-submit(type='submit') Join
+            form.join-club(method='POST' action='')
+                .form-inputs
+                    label(for='code') Secret Code: 
+                    input#code(type='text' name='code' value=(undefined === code ? '' : code))
+
+                    button#form-submit(type='submit') Join
