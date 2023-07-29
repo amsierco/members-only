@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const path = require('path');
 const session = require("express-session");
+const MemoryStore = require('memorystore')(session);
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const CustomStrategy = require("passport-custom").Strategy;
@@ -21,6 +22,7 @@ require('dotenv').config();
 
 // Set up mongoose connection
 const mongoDB = process.env.DATABASE_CONNECTION;
+console.log('TEST:'+mongoDB);
 mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
@@ -34,6 +36,10 @@ app.use(logger('dev'));
 
 // Session
 app.use(session({ 
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
   secret: process.env.SECRET, 
   resave: false, 
   saveUninitialized: true 
