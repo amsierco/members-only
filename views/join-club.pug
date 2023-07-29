@@ -14,15 +14,11 @@ block content
 
         div
             h1 Join the Club
-
-            if errors
-                    ul
-                        for error in errors
-                            li!= error.msg
+            h3 See which members posted what and when
 
             form.join-club(method='POST' action='')
                 .form-inputs
                     label(for='code') Secret Code: 
-                    input#code(type='text' name='code' value=(undefined === code ? '' : code))
+                    input#code(type='text' name='code' value=(undefined === code ? '' : code) required title='Code is required!')
 
                     button#form-submit(type='submit') Join

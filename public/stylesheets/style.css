@@ -98,6 +98,10 @@ h1 {
   padding: 1rem;
 }
 
+h3 {
+  padding-left: 1rem;
+}
+
 .message-board-container {
   width: 100%;
   display: flex;

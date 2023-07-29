@@ -2,7 +2,6 @@ const asyncHandler = require('express-async-handler');
 const { body } = require("express-validator");
 const passport = require("passport");
 
-const User = require('../models/user');
 const Message = require('../models/message');
 
 exports.home = asyncHandler(async (req, res, next) => {
@@ -52,6 +51,8 @@ exports.join_club_post = [
 exports.create_message = [
     // Sanitize message
     body('user-message').trim().escape(),
+
+
 
     // Create new database entry
     asyncHandler(async (req, res, next) => {

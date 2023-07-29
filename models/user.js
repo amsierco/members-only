@@ -7,11 +7,6 @@ const UserSchema = new Schema({
     member: { type: Boolean, default: false },
     admin: { type: Boolean, default: false }
 });
-
-// User profile URL
-// UserSchema.virtual("url").get(function () {
-//     return `/profile/${this._id}`;
-// });
   
 // Export model
 module.exports = mongoose.model("User", UserSchema);
